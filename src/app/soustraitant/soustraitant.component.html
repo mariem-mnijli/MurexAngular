@@ -1,0 +1,196 @@
+
+  <nav class="navbar navbar-expand-lg navbar-toggler bg-white">
+    <a class="navbar-brand" style="color:white;">SousTraitant Manager</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor02">
+           <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                 <a class="nav-link" (click)="onOpenModal(null!, 'add')">Add SousTraitant <span class="sr-only">(current)</span></a>
+              </li>
+           </ul>
+    </div>
+  </nav>
+  <div class="container" id="main-container">
+      <div class="row">
+        
+          <div *ngFor="let sousTraitant of soustraitants" class="col-md-6 col-xl-3">
+              <div class="card m-b-30">
+                  <ul class="list-group list-group-flush">
+                   <!-- <li class="list-group-item"><i class="fa fa-envelope float-right"></i>Id : <a href="#">{{blacklist?.id}}</a></li>
+                   -->
+                    <li class="list-group-item">nom : <a href="#">{{sousTraitant?.nom}}</a></li>
+                    <li class="list-group-item">CodeSousTraitant :<a href="#"> {{sousTraitant?.codeSousTraitant}}</a></li>
+                    <li class="list-group-item">Adresse :<a href="#"> {{sousTraitant.adresse}}</a></li>
+                    <li class="list-group-item">Telephone : <a href="#">{{sousTraitant?.telephone}}</a></li>
+                    <li class="list-group-item">Fax : <a href="#">{{sousTraitant?.fax}}</a></li>
+                    <li class="list-group-item">AdresseEMail : <a href="#">{{sousTraitant?.adresseEMail}}</a></li>
+                    <li class="list-group-item">Pays : <a href="#">{{sousTraitant?.pays}}</a></li>
+                    <li class="list-group-item">gsm : <a href="#">{{sousTraitant?.gsm}}</a></li>
+                    <li class="list-group-item">Observations : <a href="#">{{sousTraitant?.observations}}</a></li>
+                    <li class="list-group-item">CodePostal : <a href="#">{{sousTraitant?.codePostal}}</a></li>
+                    <li class="list-group-item">Ville : <a href="#">{{sousTraitant?.ville}}</a></li>
+                    <li class="list-group-item">Civilite : <a href="#">{{sousTraitant?.civilite}}</a></li>
+                    <li class="list-group-item">PrenomConsultant : <a href="#">{{sousTraitant?.prenomConsultant}}</a></li>
+                    <li class="list-group-item">AdresseSuite : <a href="#">{{sousTraitant?.adresseSuite}}</a></li>
+
+
+                 </ul>
+                  <div class="card-body">
+                      <div class="float-right btn-group btn-group-sm">
+                 <a (click)="onOpenModal(sousTraitant, 'delete')" class="btn btn-primary tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-times"></i> </a>
+                 <a (click)="onOpenModal(sousTraitant, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Edit"><i class="fa float-right"></i> </a>
+
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+   <!-- Add Employee Modal -->
+<div class="modal fade" id="addSTRModal" tabindex="-1" role="dialog" aria-labelledby="addSTRModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="addSTRModalLabel">Add SousTraitant</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <form #addForm="ngForm" (ngSubmit)="onAddSTR(addForm)" novalidate>
+            <div class="form-group">
+               <input type="text" ngModel name="nom" class="form-control" id="nom" placeholder="nom" >
+               <input type="text" ngModel name="codeSousTraitant" class="form-control" id="codeSousTraitant" placeholder="codeSousTraitant" >
+               <input type="text" ngModel name="adresse" class="form-control" id="adresse" placeholder="adresse" >
+               <input type="text" ngModel name="telephone" class="form-control" id="telephone" placeholder="elephone" >
+               <input type="text" ngModel name="fax" class="form-control" id="fax" placeholder="fax" >
+               <input type="email" ngModel name="adresseEMail" class="form-control" id="adresseEMail" placeholder="adresseEMail" >
+               <input type="text" ngModel name="pays" class="form-control" id="pays" placeholder="pays" >
+               <input type="text" ngModel name="gsm" class="form-control" id="gsm" placeholder="gsm" >
+               <input type="text" ngModel name="observations" class="form-control" id="observations" placeholder="Observations" >
+               <input type="text" ngModel name="codePostal" class="form-control" id="codePostal" placeholder="CodePostal" >
+               <input type="text" ngModel name="ville" class="form-control" id="ville" placeholder="Ville" >
+               <input type="text" ngModel name="civilite" class="form-control" id="civilite" placeholder="Civilite" >
+               <input type="text" ngModel name="prenomConsultant" class="form-control" id="prenomConsultant" placeholder="PrenomConsultant" >
+               <input type="text" ngModel name="adresseSuite" class="form-control" id="adresseSuite" placeholder="AdresseSuite" >
+
+
+            </div>
+            <div class="modal-footer">
+               <button type="button" id="add-STR-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+               <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save changes</button>
+            </div>
+            </form>
+         </div>
+      </div>
+    </div>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal fade" id="updateSTRModal" tabindex="-1" role="dialog" aria-labelledby="STREditModalLabel" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="updateSTRModalLabel">Edit SousTraitant {{editSTR?.nom}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <form #editForm="ngForm">
+             <input type="hidden" ngModel="{{editSTR?.numsousTraitant}}" name="numsousTraitant" class="form-control" id="numsousTraitant" placeholder="numsousTraitant">
+
+ 
+               <div class="form-group">
+                  <label for="nom">nom</label>
+                  <input type="text" ngModel="{{editSTR?.nom}}" name="nom" class="form-control" id="nom" aria-describedby="emailHelp" placeholder="nom">
+               </div>
+               <div class="form-group">
+                 <label for="codeSousTraitant">codeSousTraitant</label>
+                 <input type="text" ngModel="{{editSTR?.codeSousTraitant}}" name="codeSousTraitant" class="form-control" id="codeSousTraitant" aria-describedby="emailHelp" placeholder="codeSousTraitant">
+              </div>
+              <div class="form-group">
+               <label for="adresse">adresse</label>
+               <input type="text" ngModel="{{editSTR?.adresse}}" name="adresse" class="form-control" id="adresse" placeholder="adresse">
+            </div>
+               <div class="form-group">
+                  <label for="telephone">telephone</label>
+                  <input type="telephone" ngModel="{{editSTR?.telephone}}" name="telephone" class="form-control" id="telephone" placeholder="telephone">
+               </div>
+               <div class="form-group">
+                 <label for="fax">fax</label>
+                 <input type="text" ngModel="{{editSTR?.fax}}" name="fax" class="form-control" id="fax" name="fax" placeholder="fax">
+              </div>
+              <div class="form-group">
+               <label for="adresseEMail">adresseEMail</label>
+               <input type="text" ngModel="{{editSTR?.adresseEMail}}" name="adresseEMail" class="form-control" id="adresseEMail" name="adresseEMail" placeholder="adresseEMail">
+            </div>
+            <div class="form-group">
+             <label for="pays">pays</label>
+             <input type="text" ngModel="{{editSTR?.pays}}" name="pays" class="form-control" id="pays" placeholder="pays">
+          </div>     
+          <div class="form-group">
+            <label for="gsm">gsm</label>
+            <input type="text" ngModel="{{editSTR?.gsm}}" name="gsm" class="form-control" id="gsm" placeholder="gsm">
+         </div>              
+         <div class="form-group">
+            <label for="observations">observations</label>
+            <input type="text" ngModel="{{editSTR?.observations}}" name="observations" class="form-control" id="observations" placeholder="Observations">
+         </div>              
+         <div class="form-group">
+            <label for="codePostal">codePostal</label>
+            <input type="text" ngModel="{{editSTR?.codePostal}}" name="codePostal" class="form-control" id="codePostal" placeholder="codePostal">
+         </div>                       
+         <div class="form-group">
+            <label for="pays">ville</label>
+            <input type="text" ngModel="{{editSTR?.ville}}" name="ville" class="form-control" id="ville" placeholder="ville">
+         </div>              
+         <div class="form-group">
+            <label for="civilite">civilite</label>
+            <input type="text" ngModel="{{editSTR?.civilite}}" name="paciviliteys" class="form-control" id="civilite" placeholder="civilite">
+         </div>              
+         <div class="form-group">
+            <label for="prenomConsultant">prenomConsultant</label>
+            <input type="text" ngModel="{{editSTR?.prenomConsultant}}" name="prenomConsultant" class="form-control" id="prenomConsultant" placeholder="prenomConsultant">
+         </div>     
+         
+         <div class="form-group">
+            <label for="adresseSuite">adresseSuite</label>
+            <input type="text" ngModel="{{editSTR?.adresseSuite}}" name="adresseSuite" class="form-control" id="adresseSuite" placeholder="adresseSuite">
+         </div> 
+               <div class="modal-footer">
+                  <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                  <button (click)="onUpdateSTR(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Save changes</button>
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
+ </div>
+ 
+
+
+  <!-- Delete Modal -->
+  <div class="modal fade" id="deleteSTRModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+       <div class="modal-content">
+          <div class="modal-header">
+             <h5 class="modal-title" id="deleteModelLabel">Delete SousTraitant</h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+             </button>
+          </div>
+          <div class="modal-body">
+             <p>Are you sure you want to delete this SousTraitant {{deleteSTR?.nom}}?</p>
+             <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button (click)="onDeleteSTR(deleteSTR?.numsousTraitant)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+             </div>
+          </div>
+       </div>
+    </div>
+  
+  </div>

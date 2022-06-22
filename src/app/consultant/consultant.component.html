@@ -1,0 +1,196 @@
+
+  <nav class="navbar navbar-expand-lg navbar-toggler bg-white">
+    <a class="navbar-brand" style="color:white;">Consultant Manager</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor02">
+           <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                 <a class="nav-link" (click)="onOpenModal(null!, 'add')">Add Consultant <span class="sr-only">(current)</span></a>
+              </li>
+           </ul>
+    </div>
+  </nav>
+  <div class="container" id="main-container">
+      <div class="row">
+        
+          <div *ngFor="let consultant of consultants" class="col-md-6 col-xl-3">
+              <div class="card m-b-30">
+                  <ul class="list-group list-group-flush">
+                   <!-- <li class="list-group-item"><i class="fa fa-envelope float-right"></i>Id : <a href="#">{{blacklist?.id}}</a></li>
+                   -->
+                    <li class="list-group-item">nom : <a href="#">{{consultant?.nom}}</a></li>
+                    <li class="list-group-item">codeConsultant :<a href="#"> {{consultant?.codeConsultant}}</a></li>
+                    <li class="list-group-item">Adresse :<a href="#"> {{consultant.adresse}}</a></li>
+                    <li class="list-group-item">Telephone : <a href="#">{{consultant?.telephone}}</a></li>
+                    <li class="list-group-item">Fax : <a href="#">{{consultant?.fax}}</a></li>
+                    <li class="list-group-item">AdresseEMail : <a href="#">{{consultant?.adresseEMail}}</a></li>
+                    <li class="list-group-item">Pays : <a href="#">{{consultant?.pays}}</a></li>
+                    <li class="list-group-item">gsm : <a href="#">{{consultant?.gsm}}</a></li>
+                    <li class="list-group-item">Observations : <a href="#">{{consultant?.observations}}</a></li>
+                    <li class="list-group-item">CodePostal : <a href="#">{{consultant?.codePostal}}</a></li>
+                    <li class="list-group-item">Ville : <a href="#">{{consultant?.ville}}</a></li>
+                    <li class="list-group-item">Civilite : <a href="#">{{consultant?.civilite}}</a></li>
+                    <li class="list-group-item">PrenomConsultant : <a href="#">{{consultant?.prenomConsultant}}</a></li>
+                    <li class="list-group-item">AdresseSuite : <a href="#">{{consultant?.adresseSuite}}</a></li>
+
+
+                 </ul>
+                  <div class="card-body">
+                      <div class="float-right btn-group btn-group-sm">
+                 <a (click)="onOpenModal(consultant, 'delete')" class="btn btn-primary tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-times"></i> </a>
+                 <a (click)="onOpenModal(consultant, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Edit"><i class="fa float-right"></i> </a>
+
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+   <!-- Add Employee Modal -->
+<div class="modal fade" id="addConsultantModal" tabindex="-1" role="dialog" aria-labelledby="addConsultantModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="addConsultantModalLabel">Add consultant</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <form #addForm="ngForm" (ngSubmit)="onAddConsultant(addForm)" novalidate>
+            <div class="form-group">
+               <input type="text" ngModel name="nom" class="form-control" id="nom" placeholder="nom" >
+               <input type="text" ngModel name="codeConsultant" class="form-control" id="codeConsultant" placeholder="codeConsultant" >
+               <input type="text" ngModel name="adresse" class="form-control" id="adresse" placeholder="adresse" >
+               <input type="text" ngModel name="telephone" class="form-control" id="telephone" placeholder="elephone" >
+               <input type="text" ngModel name="fax" class="form-control" id="fax" placeholder="fax" >
+               <input type="email" ngModel name="adresseEMail" class="form-control" id="adresseEMail" placeholder="adresseEMail" >
+               <input type="text" ngModel name="pays" class="form-control" id="pays" placeholder="pays" >
+               <input type="text" ngModel name="gsm" class="form-control" id="gsm" placeholder="gsm" >
+               <input type="text" ngModel name="observations" class="form-control" id="observations" placeholder="Observations" >
+               <input type="text" ngModel name="codePostal" class="form-control" id="codePostal" placeholder="CodePostal" >
+               <input type="text" ngModel name="ville" class="form-control" id="ville" placeholder="Ville" >
+               <input type="text" ngModel name="civilite" class="form-control" id="civilite" placeholder="Civilite" >
+               <input type="text" ngModel name="prenomConsultant" class="form-control" id="prenomConsultant" placeholder="PrenomConsultant" >
+               <input type="text" ngModel name="adresseSuite" class="form-control" id="adresseSuite" placeholder="AdresseSuite" >
+
+
+            </div>
+            <div class="modal-footer">
+               <button type="button" id="add-Consultant-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+               <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save changes</button>
+            </div>
+            </form>
+         </div>
+      </div>
+    </div>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal fade" id="updateConsultantModal" tabindex="-1" role="dialog" aria-labelledby="ConsultantEditModalLabel" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="updateConsultantModalLabel">Edit consultant {{editConsultant?.nom}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <form #editForm="ngForm">
+             <input type="hidden" ngModel="{{editConsultant?.numConsultant}}" name="numConsultant" class="form-control" id="numConsultant" placeholder="numConsultant">
+
+ 
+               <div class="form-group">
+                  <label for="nom">nom</label>
+                  <input type="text" ngModel="{{editConsultant?.nom}}" name="nom" class="form-control" id="nom" aria-describedby="emailHelp" placeholder="nom">
+               </div>
+               <div class="form-group">
+                 <label for="codeConsultant">codeConsultant</label>
+                 <input type="text" ngModel="{{editConsultant?.codeConsultant}}" name="codeConsultant" class="form-control" id="codeConsultant" aria-describedby="emailHelp" placeholder="codeConsultant">
+              </div>
+              <div class="form-group">
+               <label for="adresse">adresse</label>
+               <input type="text" ngModel="{{editConsultant?.adresse}}" name="adresse" class="form-control" id="adresse" placeholder="adresse">
+            </div>
+               <div class="form-group">
+                  <label for="telephone">telephone</label>
+                  <input type="telephone" ngModel="{{editConsultant?.telephone}}" name="telephone" class="form-control" id="telephone" placeholder="telephone">
+               </div>
+               <div class="form-group">
+                 <label for="fax">fax</label>
+                 <input type="text" ngModel="{{editConsultant?.fax}}" name="fax" class="form-control" id="fax" name="fax" placeholder="fax">
+              </div>
+              <div class="form-group">
+               <label for="adresseEMail">adresseEMail</label>
+               <input type="text" ngModel="{{editConsultant?.adresseEMail}}" name="adresseEMail" class="form-control" id="adresseEMail" name="adresseEMail" placeholder="adresseEMail">
+            </div>
+            <div class="form-group">
+             <label for="pays">pays</label>
+             <input type="text" ngModel="{{editConsultant?.pays}}" name="pays" class="form-control" id="pays" placeholder="pays">
+          </div>     
+          <div class="form-group">
+            <label for="gsm">gsm</label>
+            <input type="text" ngModel="{{editConsultant?.gsm}}" name="gsm" class="form-control" id="gsm" placeholder="gsm">
+         </div>              
+         <div class="form-group">
+            <label for="observations">observations</label>
+            <input type="text" ngModel="{{editConsultant?.observations}}" name="observations" class="form-control" id="observations" placeholder="Observations">
+         </div>              
+         <div class="form-group">
+            <label for="codePostal">codePostal</label>
+            <input type="text" ngModel="{{editConsultant?.codePostal}}" name="codePostal" class="form-control" id="codePostal" placeholder="codePostal">
+         </div>                       
+         <div class="form-group">
+            <label for="pays">ville</label>
+            <input type="text" ngModel="{{editConsultant?.ville}}" name="ville" class="form-control" id="ville" placeholder="ville">
+         </div>              
+         <div class="form-group">
+            <label for="civilite">civilite</label>
+            <input type="text" ngModel="{{editConsultant?.civilite}}" name="paciviliteys" class="form-control" id="civilite" placeholder="civilite">
+         </div>              
+         <div class="form-group">
+            <label for="prenomConsultant">prenomConsultant</label>
+            <input type="text" ngModel="{{editConsultant?.prenomConsultant}}" name="prenomConsultant" class="form-control" id="prenomConsultant" placeholder="prenomConsultant">
+         </div>     
+         
+         <div class="form-group">
+            <label for="adresseSuite">adresseSuite</label>
+            <input type="text" ngModel="{{editConsultant?.adresseSuite}}" name="adresseSuite" class="form-control" id="adresseSuite" placeholder="adresseSuite">
+         </div> 
+               <div class="modal-footer">
+                  <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                  <button (click)="onUpdateConsultant(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Save changes</button>
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
+ </div>
+ 
+
+
+  <!-- Delete Modal -->
+  <div class="modal fade" id="deleteConsultantModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+       <div class="modal-content">
+          <div class="modal-header">
+             <h5 class="modal-title" id="deleteModelLabel">Delete consultant</h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+             </button>
+          </div>
+          <div class="modal-body">
+             <p>Are you sure you want to delete this consultant {{deleteConsultant?.nom}}?</p>
+             <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button (click)="onDeleteConsultant(deleteConsultant?.numConsultant)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+             </div>
+          </div>
+       </div>
+    </div>
+  
+  </div>
