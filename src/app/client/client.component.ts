@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Client } from './client';
 import { ClientService } from './client.service';
@@ -23,7 +24,7 @@ export class ClientComponent implements OnInit {
   }
 
   public getClients(): void {
-    this.clientService.findAll().subscribe(
+    this.clientService.getClients().subscribe(
       (response: Client[]) => {
         this.clients = response;
         console.log(this.clients);
@@ -33,6 +34,22 @@ export class ClientComponent implements OnInit {
         alert(error.message);
         alert("you are not allowed");
         this.route.navigateByUrl('/home');
+      }
+    );
+  }
+
+  public onAddClient(addForm: NgForm): void {
+    document.getElementById('add-Client-form')!.click();
+    this.clientService.save(addForm.value).subscribe(
+      (response: Client) => {
+        console.error
+        console.log(response);
+        this.getClients();
+        addForm.reset();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+        addForm.reset();
       }
     );
   }
@@ -51,31 +68,6 @@ export class ClientComponent implements OnInit {
   public onDeleteClient(NumClient: number): void {
     this.clientService.deleteClient(NumClient).subscribe(() => { this.getClients() });
   }
-/*
- public searchUsers(key: string): void {
-    console.log(key);
-    const results: User[] = [];
-    for (const user of this.users) {
-      if (user.firstName.toLowerCase().indexOf(key.toLowerCase()) !== -1
-      || user.email.toLowerCase().indexOf(key.toLowerCase()) !== -1
-      || user.role.toLowerCase().indexOf(key.toLowerCase()) !== -1) {
-        results.push(user);
-      }
-    }
-    this.users = results;
-    if (results.length === 0 || !key) {
-     alert("No user Found please try again");  
-     this.users=[];
-     const that=this;
-     setTimeout(function () {
-      that.getUsers() ; // here... this has different context
-   }, 3000);
-
-
-    }
-
-  }
-*/
   public onOpenModal(client: Client, mode: string): void {
     const container = document.getElementById('main-container');
     const button = document.createElement('button');
@@ -89,6 +81,10 @@ export class ClientComponent implements OnInit {
     if (mode === 'delete') {
       this.deleteClient = client;
       button.setAttribute('data-target', '#deleteClientModal');
+    }
+    if (mode === 'add') {
+
+      button.setAttribute('data-target', '#addClientModal');
     }
     container?.appendChild(button);
     button.click();

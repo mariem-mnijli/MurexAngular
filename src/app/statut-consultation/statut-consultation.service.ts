@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { StatutConsultation } from './statut-consultation';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -14,10 +15,10 @@ export class StatutConsultationService {
     this.statutConsultationtUrl = 'http://localhost:8075/SpringMVC/statutConsultation';
   }
 
-  public findAll(): Observable<StatutConsultation[]> {
+  public getStatutConsultations(): Observable<StatutConsultation[]> {
     return this.http.get<StatutConsultation[]>(this.statutConsultationtUrl+"/retrieve-all-statutConsultations");
   }
-  
+   
 
   
     public save(statutConsultation: StatutConsultation) {
@@ -25,11 +26,11 @@ export class StatutConsultationService {
   }
  
 
-  public modifyStatutConsultation(value:any):Observable<object> {
-    return this.http.put(this.statutConsultationtUrl+"/modify-statutConsultation", value);
+  public modifyStatutConsultation(statutConsultation: StatutConsultation): Observable<StatutConsultation> {
+    return this.http.put<StatutConsultation> (this.statutConsultationtUrl+"/modify-statutConsultation", statutConsultation);
   }
 
-  public deleteStatutConsultation(IDF_StatutConsultaion: number) {
-    return this.http.delete(`${this.statutConsultationtUrl+"/remove-statutConsultation"}/${IDF_StatutConsultaion}`);
+  public deleteStatutConsultation(IDF_StatutConsultaion: number): Observable<void> {
+    return this.http.delete<void>(`${this.statutConsultationtUrl+"/remove-statutConsultation"}/${IDF_StatutConsultaion}`);
   }
 }

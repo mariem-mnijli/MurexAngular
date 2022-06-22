@@ -1,96 +1,100 @@
 <p>NOS CLIENTS</p>
+<nav class="navbar navbar-expand-lg navbar-toggler bg-white">
+   <a class="navbar-brand" style="color:white;">Client Manager</a>
+   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+       <span class="navbar-toggler-icon"></span>
+       </button>
+       <div class="collapse navbar-collapse" id="navbarColor02">
+          <ul class="navbar-nav mr-auto">
+             <li class="nav-item active">
+                <a class="nav-link" (click)="onOpenModal(null!, 'add')">Add Client <span class="sr-only">(current)</span></a>
+             </li>
+          </ul>
+   </div>
+ </nav>
 <div class="container" id="main-container">
     <div class="row">
       
         <div *ngFor="let client of clients" class="col-md-6 col-xl-3">
             <div class="card m-b-30">
-                <div class="card-body row">
-                    <div class="col-6">
-                        <a href=""><img src="" alt="" class="img-fluid rounded-circle w-60"></a>
-                    </div>
-                    <div class="col-6 card-title align-self-center mb-0">
-                        <h5>{{client?.CodeClient}}</h5>
-                        <h5>{{client?.Nom}}</h5>
-                        <h5>{{client?.PrenomClient}}</h5>
-                        <h5>{{client?.Adresse}}</h5>
-                    </div>
-                </div>
                 <ul class="list-group list-group-flush">
-                   <li class="list-group-item"><i class=""></i>Code Client : <a href="#">{{client?.CodeClient}}</a></li>
-                    <li class="list-group-item"><i class=""></i>Nom : <a href="#">{{client?.Nom}}</a></li>
-                    <li class="list-group-item"><i class=""></i>Prénom du Client : <a href="#">{{client?.PrenomClient}}</a></li>
-                    <li class="list-group-item"><i class=""></i>Adresse : <a href="#">{{client?.Adresse}}</a></li>
-                    <!--<li class="list-group-item"><i class="fa fa-times float-right"></i>Date de Creation : <a href="#">{{user?.datecreation}}</a></li>-->
-                  <!-- <li class="list-group-item"><i class="fa fa-envelope float-right"></i>Password : <a href="#">{{user?.password}}</a></li> 
-                    <li class="list-group-item"><i class="fa fa-envelope float-right"></i>Locked! : <a href="#">{{user?.locked}}</a></li>
-                    <li class="list-group-item"><i class="fa fa-envelope float-right"></i>Enabled! : <a href="#">{{user?.enabled}}</a></li>
-                    -->
+                   <li class="list-group-item"><i class=""></i>Code Client : <a href="#">{{client?.codeClient}}</a></li>
+                    <li class="list-group-item"><i class=""></i>Nom : <a href="#">{{client?.nom}}</a></li>
+                    <li class="list-group-item"><i class=""></i>Prénom du Client : <a href="#">{{client?.prenomClient}}</a></li>
+                    <li class="list-group-item"><i class=""></i>Adresse : <a href="#">{{client?.adresse}}</a></li>
                 </ul>
                 <div class="card-body">
                     <div class="float-right btn-group btn-group-sm">
-                        <a (click)="onOpenModal(client, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+                        <a (click)="onOpenModal(client, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-refresh"></i> </a>
                         <a (click)="onOpenModal(client, 'delete')" class="btn btn-primary tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-times"></i> </a>
                     </div>
-                    <ul class="social-links list-inline mb-0">
-                        <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Facebook"><i class="fa fa-facebook-f"></i></a></li>
-                        <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Twitter"><i class="fa fa-twitter"></i></a></li>
-                        <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Skype"><i class="fa fa-skype"></i></a></li>
-                    </ul>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+   <!-- Add Employee Modal -->
+   <div class="modal fade" id="addClientModal" tabindex="-1" role="dialog" aria-labelledby="addClientModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+           <div class="modal-header">
+              <h5 class="modal-title" id="addClientModalLabel">Add Client</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              </button>
+           </div>
+           <div class="modal-body">
+              <form #addForm="ngForm" (ngSubmit)="onAddClient(addForm)" novalidate>
+              <div class="form-group">
+                 <input type="text" ngModel name="codeClient" class="form-control" id="codeClient" placeholder="codeClient" >
+                 <input type="text" ngModel name="nom" class="form-control" id="nom" placeholder="nom" >
+                 <input type="text" ngModel name="prenomClient" class="form-control" id="prenomClient" placeholder="prenomClient" >
+                 <input type="text" ngModel name="adresse" class="form-control" id="adresse" placeholder="adresse" >
+  
+  
+              </div>
+              <div class="modal-footer">
+                 <button type="button" id="add-Client-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                 <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save changes</button>
+              </div>
+              </form>
+           </div>
+        </div>
+      </div>
+  </div>
+  
+
 <!-- Edit Modal -->
 <div class="modal fade" id="updateClientModal" tabindex="-1" role="dialog" aria-labelledby="clientEditModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
      <div class="modal-content">
         <div class="modal-header">
-           <h5 class="modal-title" id="updateClientModalLabel">Edit Client {{editClient?.CodeClient}}</h5>
+           <h5 class="modal-title" id="updateClientModalLabel">Edit Client {{editClient?.codeClient}}</h5>
            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
            <span aria-hidden="true">&times;</span>
            </button>
         </div>
         <div class="modal-body">
            <form #editForm="ngForm">
-            <input type="hidden" ngModel="{{editClient?.NumClient}}" name="NumClient" class="form-control" id="NumClient" placeholder="NumClient">
-            <!-- <input type="hidden" ngModel="{{editClient?.datecreation}}" name="datecreation" class="form-control" id="datecreation" placeholder="datecreation">
-            <input type="hidden" ngModel="{{editUser?.enabled}}" name="enabled" class="form-control" id="enabled" placeholder="enabled">
-            <input type="hidden" ngModel="{{editUser?.locked}}" name="locked" class="form-control" id="locked" placeholder="locked">
-            <input type="hidden" ngModel="{{editUser?.password}}" name="password" class="form-control" id="password" placeholder="password">
-               -->
+            <input type="hidden" ngModel="{{editClient?.numClient}}" name="numClient" class="form-control" id="numClient" placeholder="numClient">
 
               <div class="form-group">
-                 <label for="CodeClient">CodeClient</label>
-                 <input type="text" ngModel="{{editClient?.CodeClient}}" name="CodeClient" class="form-control" id="CodeClient" aria-describedby="emailHelp" placeholder="CodeClient">
+                 <label for="codeClient">CodeClient</label>
+                 <input type="text" ngModel="{{editClient?.codeClient}}" name="codeClient" class="form-control" id="codeClient" aria-describedby="emailHelp" placeholder="codeClient">
               </div>
               <div class="form-group">
-                <label for="Nom">Nom</label>
-                <input type="text" ngModel="{{editClient?.Nom}}" name="Nom" class="form-control" id="Nom" aria-describedby="emailHelp" placeholder="Nom">
+                <label for="nom">Nom</label>
+                <input type="text" ngModel="{{editClient?.nom}}" name="nom" class="form-control" id="nom" aria-describedby="emailHelp" placeholder="nom">
              </div>
              <div class="form-group">
-              <label for="PrenomClient">PrenomClient</label>
-              <input type="text" ngModel="{{editClient?.PrenomClient}}" name="PrenomClient" class="form-control" id="PrenomClient" placeholder="PrenomClient">
+              <label for="prenomClient">PrenomClient</label>
+              <input type="text" ngModel="{{editClient?.prenomClient}}" name="prenomClient" class="form-control" id="prenomClient" placeholder="prenomClient">
            </div>
               <div class="form-group">
-                 <label for="Adresse">Adresse</label>
-                 <input type="Adresse" ngModel="{{editClient?.Adresse}}" name="Adresse" class="form-control" id="Adresse" placeholder="Adresse">
-              </div>
-              <!--
-              <div class="form-group">
-                <label for="telephone">Phone</label>
-                <input type="text" ngModel="{{editUser?.telephone}}" name="telephone" class="form-control" id="telephone" name="telephone" placeholder="telephone">
-             </div>
-             <div class="form-group">
-              <label for="adress">Adress</label>
-              <input type="text" ngModel="{{editUser?.adress}}" name="adress" class="form-control" id="adress" name="adress" placeholder="adress">
-           </div>
-           <div class="form-group">
-            <label for="description">description</label>
-            <input type="text" ngModel="{{editUser?.description}}" name="description" class="form-control" id="description" placeholder="description">
-         </div>  
-        -->            
+                 <label for="adresse">Adresse</label>
+                 <input type="adresse" ngModel="{{editClient?.adresse}}" name="adresse" class="form-control" id="adresse" placeholder="adresse">
+              </div>         
               <div class="modal-footer">
                  <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
                  <button (click)="onUpdateClient(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Save changes</button>
@@ -114,10 +118,10 @@
            </button>
         </div>
         <div class="modal-body">
-           <p>Are you sure you want to delete Client {{deleteClient?.NumClient}}?</p>
+           <p>Are you sure you want to delete Client {{deleteClient?.numClient}}?</p>
            <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-              <button (click)="onDeleteClient(deleteClient?.NumClient)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+              <button (click)="onDeleteClient(deleteClient?.numClient)" class="btn btn-danger" data-dismiss="modal">Yes</button>
            </div>
         </div>
      </div>

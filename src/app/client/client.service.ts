@@ -14,7 +14,7 @@ export class ClientService {
     this.clientUrl = 'http://localhost:8075/SpringMVC/client';
   }
 
-  public findAll(): Observable<Client[]> {
+  public getClients(): Observable<Client[]> {
     return this.http.get<Client[]>(this.clientUrl+"/retrieve-all-clients");
   }
   
@@ -25,11 +25,12 @@ export class ClientService {
   }
  
 
-  public modifyClient(value:any):Observable<object> {
-    return this.http.put(this.clientUrl+"/modify-client", value);
-  }
+  public modifyClient(client:Client):Observable<Client> {
+    return this.http.put<Client>(this.clientUrl+"/modify-client", client);
+  } 
 
-  public deleteClient(NumClient: number) {
-    return this.http.delete(`${this.clientUrl+"/remove-client"}/${NumClient}`);
+  public deleteClient(NumClient: number): Observable<void> {
+    return this.http.delete<void>(`${this.clientUrl+"/remove-client"}/${NumClient}`);
   }
 }
+

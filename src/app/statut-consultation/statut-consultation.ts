@@ -1,4 +1,4 @@
 export class StatutConsultation {
-    IDF_StatutConsultaion: number;
-	StatutConsultation: string;
+    idf_StatutConsultaion: number;
+	statutConsultation: string;
 }
